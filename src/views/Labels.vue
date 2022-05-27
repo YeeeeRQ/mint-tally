@@ -1,7 +1,7 @@
 <template>
-  <Layout>
+  <LayoutComponent>
     <p>Labels</p>
-  </Layout>
+  </LayoutComponent>
 </template>
 
 <script lang="ts" >

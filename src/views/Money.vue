@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Layout>
+    <LayoutComponent>
       <p>Money.vue</p>
-    </Layout>
+    </LayoutComponent>
   </div>
 </template>
 
 <script lang="ts" >
 export default {
-name: "MoneyPage"
+    name: "MoneyPage",
 }
 </script>
 <style lang="scss" scoped>
