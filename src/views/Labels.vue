@@ -1,12 +1,12 @@
 <template>
-  <LayoutComponent>
+  <Layout>
     <p>Labels</p>
-  </LayoutComponent>
+  </Layout>
 </template>
 
 <script lang="ts" >
 export default {
-name: "LabelsPage"
+name: "Labels"
 }
 </script>
 

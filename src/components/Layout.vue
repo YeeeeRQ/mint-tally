@@ -3,13 +3,13 @@
     <div class="content">
       <slot></slot>
     </div>
-    <NavComponent />
+    <Nav/>
   </div>
 </template>
 
 <script lang="ts" >
 export default {
-name: "LayoutComponent"
+name: "Layout"
 }
 </script>
 

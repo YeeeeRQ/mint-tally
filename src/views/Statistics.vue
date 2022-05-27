@@ -1,14 +1,14 @@
 <template>
   <div>
-    <LayoutComponent>
+    <Layout>
       <p>Statistics</p>
-    </LayoutComponent>
+    </Layout>
   </div>
 </template>
 
 <script lang="ts" >
 export default {
-name: "StatisticsPage"
+name: "Statistics"
 }
 </script>
 
