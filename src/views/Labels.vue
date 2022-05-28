@@ -1,7 +1,9 @@
 <template>
-  <Layout>
-    <p>Labels</p>
-  </Layout>
+  <div>
+    <Layout>
+      <p>Labels</p>
+    </Layout>
+  </div>
 </template>
 
 <script lang="ts" >
