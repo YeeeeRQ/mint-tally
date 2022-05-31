@@ -14,35 +14,35 @@
 
 <script lang="ts">
 export default {
-  name: "Nav"
-}
+  name: "Nav",
+};
 </script>
 
 <style lang="scss" scoped>
-  nav {
-    display: flex;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
-    flex-direction: row;
-    font-size: 14px;
-    > .item{
-      padding: 2px 0;
-      border: 1px solid red;
-      width: 33.33333%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .icon{
-        width: 30px;
-        height: 30px;
-      }
-      color: 	#A0A0A0;
-      font-weight: lighter;
-    }
-    > .item.selected{
-      color: 	#8FBC8F;
-      font-weight: bold;
-    }
-  }
+@import "~@/assets/style/helper.scss";
 
+nav {
+  display: flex;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  flex-direction: row;
+  font-size: 14px;
+  > .item {
+    padding: 2px 0;
+    width: 33.33333%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .icon {
+      width: 30px;
+      height: 30px;
+    }
+    color: #a0a0a0;
+    font-weight: lighter;
+  }
+  > .item.selected {
+    color: $color-highlight;
+    font-weight: bold;
+  }
+}
 </style>
