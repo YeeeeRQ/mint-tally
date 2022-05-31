@@ -40,7 +40,7 @@ export default {
       font-weight: lighter;
     }
     > .item.selected{
-      color: 	#66CCAA;
+      color: 	#8FBC8F;
       font-weight: bold;
     }
   }
