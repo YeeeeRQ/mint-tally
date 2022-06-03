@@ -1,37 +1,41 @@
 <template>
-    <div class="tags">
-      <ul class="current">
-        <li>衣啥地方</li>
-        <li>食</li>
-        <li>住大法</li>
-        <li>行是</li>
-        <li>衣</li>
-        <li>食奥德赛</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-      </ul>
-      <div class="new">
-        <button>新增标签</button>
-      </div>
+  <div class="tags">
+    <ul class="current">
+      <li
+        v-for="tag in dataSource"
+        :key="tag"
+        @click="toggle(tag)"
+        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
+      >
+        {{ tag }}
+      </li>
+    </ul>
+    <div class="new">
+      <button>新增标签</button>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
-export default {
-    name: "Tags"
+import { Vue, Component, Prop } from "vue-property-decorator";
+
+@Component
+export default class Tags extends Vue {
+  @Prop() dataSource: string[] | undefined;
+  selectedTags: string[] = [];
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.tags{
+.tags {
   overflow: auto;
   flex-grow: 1;
   font-size: 14px;
@@ -39,12 +43,14 @@ export default {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  > .current{
+  > .current {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    > li{
-      background-color: #d9d9d9;
+    > li {
+      $tag_color: #d9d9d9;
+
+      background-color: $tag_color;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -52,11 +58,15 @@ export default {
       padding: 0 12px;
       margin-right: 12px;
       margin-top: 4px;
+      &.selected {
+        background: darken($tag_color, 20%);
+        outline: 1px dashed #f7f7f7;
+      }
     }
   }
-  > .new{
+  > .new {
     padding-top: 16px;
-    button{
+    button {
       background: transparent;
       border: none;
       color: #999;
@@ -65,5 +75,4 @@ export default {
     }
   }
 }
-
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <Layout class-prefix="xxx">
-    <Tags />
+  <Layout class-prefix="layout">
+    <Tags :data-source="tags" />
     <Notes />
     <Types />
     <NumberPad/>
@@ -18,13 +18,18 @@ export default {
     NumberPad,
     Tags,
     Notes,
-    Types
+    Types,
+  },
+  data(){
+    return {
+      tags:[ '衣','食','住','行', "彩票"]
+    }
   }
 };
 </script>
 
 <style lang="scss">
-.xxx-content{
+.layout-content{
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
