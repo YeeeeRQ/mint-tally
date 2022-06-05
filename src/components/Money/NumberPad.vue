@@ -94,7 +94,10 @@ export default class NumberPad extends Vue {
     }
 
     function handleOkBtn(): void {
+      if(!_this.output)return;
+
       _this.$emit('update:value', _this.output);
+      _this.$emit('submit', _this.output);
       _this.output = "";
     }
   }
