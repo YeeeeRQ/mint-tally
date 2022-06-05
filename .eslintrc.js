@@ -14,7 +14,8 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    "vue/multi-word-component-names":"off"
+    "vue/multi-word-component-names":"off",
+    "@typescript-eslint/no-this-alias":["off"]
   },
   "globals": {  //与上方的rules是同级的
     "__WebpackModuleApi": true

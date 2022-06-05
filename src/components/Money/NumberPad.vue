@@ -27,49 +27,13 @@ import { Vue, Component } from "vue-property-decorator";
 export default class NumberPad extends Vue {
   blankChar = "\u3000"; // \u3000 不可见字符
   output = "";
+
   tapButton(event: MouseEvent) {
     const btn = event.target as HTMLButtonElement;
     const max_size = 13;
-
-    let isNumberBtn = (btn: HTMLButtonElement): boolean => {
-      if (!btn.textContent) return false;
-      return 0 <= "0123456789".indexOf(btn.textContent);
-    };
-
-    let handleNumberBtn = (btn: HTMLButtonElement) => {
-      if (!btn.textContent) return;
-
-      if (this.output === "0") {
-        if (btn.textContent !== "0") {
-          this.output = btn.textContent;
-        }
-        return;
-      }
-
-      this.output += btn.textContent;
-    };
-
-    let handleDeleteBtn = () => {
-      this.output = this.output.slice(0, -1);
-    };
-
-    let handleClearBtn = () => {
-      this.output = "";
-    };
-
-    let handleDotBtn = () => {
-      if (this.output.length === 0) {
-        this.output = "0.";
-        return;
-      }
-      if (this.output.indexOf(".") > 0) {
-        return;
-      }
-      this.output += ".";
-    };
+    const _this = this;
 
     if (isNumberBtn(btn)) {
-      if(this.output.length >= max_size) return;
       handleNumberBtn(btn);
     } else {
       switch (btn.dataset.type) {
@@ -80,6 +44,7 @@ export default class NumberPad extends Vue {
           handleClearBtn();
           break;
         case "ok":
+          handleOkBtn();
           break;
         case "dot":
           handleDotBtn();
@@ -87,6 +52,50 @@ export default class NumberPad extends Vue {
         default: // do nothing
           break;
       }
+    }
+
+    function isNumberBtn(btn: HTMLButtonElement): boolean {
+      if (!btn.textContent) return false;
+      return 0 <= "0123456789".indexOf(btn.textContent);
+    }
+
+    function handleNumberBtn(btn: HTMLButtonElement): void {
+      if (_this.output.length >= max_size) return;
+      if (!btn.textContent) return;
+
+      if (_this.output === "0") {
+        if (btn.textContent !== "0") {
+          _this.output = btn.textContent;
+        }
+        return;
+      }
+
+      _this.output += btn.textContent;
+    }
+
+    function handleDeleteBtn(): void {
+      _this.output = _this.output.slice(0, -1);
+    }
+
+    function handleClearBtn(): void {
+      _this.output = "";
+    }
+
+    function handleDotBtn(): void {
+      if (_this.output.length >= max_size) return;
+      if (_this.output.length === 0) {
+        _this.output = "0.";
+        return;
+      }
+      if (_this.output.indexOf(".") > 0) {
+        return;
+      }
+      _this.output += ".";
+    }
+
+    function handleOkBtn(): void {
+      _this.$emit('update:value', _this.output);
+      _this.output = "";
     }
   }
 }
