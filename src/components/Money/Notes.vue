@@ -1,5 +1,4 @@
 <template>
-  <!-- label.notes>span.name+input[type="text"] -->
   <div>
     <label class="notes">
       <span class="name">备注</span>
@@ -18,10 +17,6 @@ import { Vue, Component, Watch} from "vue-property-decorator";
 @Component
 export default class Notes extends Vue {
   desc = "";
-  // onChange(event: Event) {
-  //   const input = event.target as HTMLInputElement;
-  //   this.desc = input.value;
-  // }
   @Watch('desc')
   onValueChanged(desc: string){
     this.$emit('update:value', desc);
