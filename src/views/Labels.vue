@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <Layout>
-      <ol class="tags">
-        <li v-for="tag in tags" :key="tag">
-          <span>{{ tag }}</span>
-          <Icon name="right" />
-        </li>
-      </ol>
-      <div class="createTag-wrapper">
-        <button class="createTag" @click="createTag">新建标签</button>
-      </div>
-    </Layout>
-  </div>
+  <Layout>
+    <ol class="tags">
+      <router-link class="tag" tag="li" :to="`/labels/edit/${tag.id}`" v-for="tag in tags" :key="tag.id">
+        <span>{{ tag.name }}</span>
+        <Icon name="right" />
+      </router-link>
+    </ol>
+    <div class="createTag-wrapper">
+      <button class="createTag" @click="createTag">新建标签</button>
+    </div>
+  </Layout>
 </template>
 
 <script lang="ts" >
@@ -45,7 +43,7 @@ export default class Labels extends Vue {
   font-size: 16px;
   padding-left: 16px;
 
-  >li {
+  >.tag {
     // border: 1px solid red;
     min-height: 44px;
     display: flex;

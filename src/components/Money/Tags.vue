@@ -3,11 +3,11 @@
     <ul class="current">
       <li
         v-for="tag in dataSource"
-        :key="tag"
+        :key="tag.id"
         @click="toggle(tag)"
         :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
       >
-        {{ tag }}
+        {{ tag.name }}
       </li>
     </ul>
     <div class="new">
@@ -21,6 +21,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue {
+  // Todo： bug！！ 修改dataSource类型
   @Prop() readonly dataSource: string[] | undefined;
   selectedTags: string[] = [];
   toggle(tag: string) {
