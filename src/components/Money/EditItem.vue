@@ -16,7 +16,7 @@ import { Vue, Component, Watch, Prop} from "vue-property-decorator";
 
 @Component
 export default class Notes extends Vue {
-  desc = "";
+  @Prop({default:''}) desc!:string;
 
   @Prop({required:true}) fieldName!:string;
   @Prop({default:''}) placeholder!:string;

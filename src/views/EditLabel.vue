@@ -14,11 +14,11 @@
 </template>
 
 <script lang="ts" >
-import tagListModel from "@/models/tagListModel";
 import { Vue, Component } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 import EditItem from "@/components/Money/EditItem.vue";
 import Button from "@/components/Button.vue";
+import tagListModel from "@/models/tagListModel";
 
 @Component({
     components: {
