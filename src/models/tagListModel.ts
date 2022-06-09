@@ -7,6 +7,8 @@ type TagListModel = {
   data: Tag[];
   fetch: () => Tag[];
   create: (name: string) => "success" | "duplicated" | "blankTag";
+  update: (id: string, name: string) => "success" | "not found";
+  remove: (id:string)=>'success'|'failed';
   save: () => void;
 };
 const tagListModel: TagListModel = {
@@ -30,6 +32,25 @@ const tagListModel: TagListModel = {
     this.data.push({ id: name, name: name });
     this.save();
     return "success";
+  },
+  update(id, name) {
+    const tag = this.data.filter((item) => item.id === id)[0];
+    if (tag) {
+      tag.name = name;
+      this.save();
+      return "success";
+    } else {
+      return "not found";
+    }
+  },
+  remove(id){
+    const idx = this.data.findIndex((el) => el.id === id);
+    if(idx >= 0){
+      this.data.splice(idx, 1);
+      this.save();
+      return 'success'
+    }
+    return 'failed'
   },
   save() {
     localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));

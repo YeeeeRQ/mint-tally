@@ -1,14 +1,15 @@
 <template>
     <Layout>
         <div class="navBar">
-            <Icon name="right" />
+            <Icon name="right" @click="goBack" />
             <span class="title">编辑标签</span>
         </div>
         <div class="form-wrapper">
-            <EditItem field-name="标签名" placeholder="请输入标签名" />
+            <EditItem @update:value="updateTag"
+            :value="tag.name" field-name="标签名" placeholder="请输入标签名" />
         </div>
         <div class="button-wrapper">
-            <Button>删除标签</Button>
+            <Button @click="delTag">删除标签</Button>
         </div>
     </Layout>
 </template>
@@ -28,6 +29,7 @@ import tagListModel from "@/models/tagListModel";
     }
 })
 export default class EditLabel extends Vue {
+    tag: { id: string, name: string } = {id:'UNKNOWN', name: ''};
     created() {
         const id = this.$route.params.id;
 
@@ -35,10 +37,29 @@ export default class EditLabel extends Vue {
         const tags = tagListModel.data;
         const tag = tags.filter(t => t.id === id)[0];
         if (tag) {
+            this.tag = tag
             console.log(tag);
         } else {
             this.$router.replace('/404');
         }
+    }
+
+    updateTag(name: string){
+        tagListModel.update(this.tag.id, name)
+        // console.log('id: ' + this.tag.id + ' name: ' +name);
+    }
+
+    delTag() {
+        if(tagListModel.remove(this.tag.id)=== 'success'){
+            this.goBack()
+        }else{
+            console.log('delTag ERROR: ' + 'Tag ID: ' + this.tag.id);
+        }
+    }
+
+    goBack() {
+        this.$router.replace('/labels');
+        // this.$router.push('/labels');
     }
 }
 </script>
@@ -59,12 +80,13 @@ export default class EditLabel extends Vue {
     }
 
 }
-.form-wrapper{
+
+.form-wrapper {
     background-color: white;
     margin-top: 8px;
 }
 
-.button-wrapper{
+.button-wrapper {
     text-align: center;
     padding: 16px;
     margin-top: 44-16px;
