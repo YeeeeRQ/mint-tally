@@ -5,25 +5,25 @@
       <input
         type="text"
         :placeholder="placeholder"
-        v-model="desc"
+        :value="value"
+        @input="onValueChanged($event.target.value)"
       />
     </label>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch, Prop} from "vue-property-decorator";
+import { Vue, Component, Prop} from "vue-property-decorator";
 
 @Component
 export default class Notes extends Vue {
-  @Prop({default:''}) desc!:string;
+  @Prop({default:''}) readonly value!:string;
 
   @Prop({required:true}) fieldName!:string;
   @Prop({default:''}) placeholder!:string;
 
-  @Watch('desc')
-  onValueChanged(desc: string){
-    this.$emit('update:value', desc);
+  onValueChanged(value: string){
+    this.$emit('update:value', value);
   }
 }
 </script>
