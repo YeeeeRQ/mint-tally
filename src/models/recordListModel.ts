@@ -7,6 +7,7 @@ const recordListModel = {
     const record_copy: RecordItem = clone(record)
     record_copy.createdAt = new Date()
     this.data.push(record_copy);
+    this.save();
   },
   fetch(): RecordItem[] {
     this.data = JSON.parse(
