@@ -26,7 +26,8 @@ const recordList = recordListModel.fetch();
   components: { NumberPad, Tags, Notes: EditItem, Types },
 })
 export default class Money extends Vue {
-  tags = tagListModel.data;
+  // tags = tagListModel.data;
+  tags = window.tagList;
   record: RecordItem = {
     tags: [],
     notes: "",
@@ -46,14 +47,12 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record_copy: RecordItem = recordListModel.clone(this.record)
-    record_copy.createdAt = new Date()
-    this.recordList.push(record_copy);
+    recordListModel.create(this.record);
   }
 
   @Watch('recordList')
   onRecordListChanged() {
-    recordListModel.save(this.recordList)
+    recordListModel.save()
   }
 
   mounted() {

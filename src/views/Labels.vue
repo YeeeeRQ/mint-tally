@@ -23,7 +23,8 @@ import Button from "@/components/Button.vue";
   components:{Button}
 })
 export default class Labels extends Vue {
-  tags = tagListModel.data;
+  // tags = tagListModel.data;
+  tags = window.tagList;
   createTag() {
     // const name = window.prompt("请输入标签名")?.trim();
     const name = window.prompt("请输入标签名");
