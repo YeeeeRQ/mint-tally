@@ -1,12 +1,8 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li
-        v-for="tag in dataSource"
-        :key="tag.id"
-        @click="toggle(tag)"
-        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
-      >
+      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
+        :class="{ selected: selectedTags.indexOf(tag) >= 0 }">
         {{ tag.name }}
       </li>
     </ul>
@@ -17,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from "vue-property-decorator";
+import store from "@/store/index2";
+import { Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue {
-  // Todo： bug！！ 修改dataSource类型
-  @Prop() readonly dataSource: string[] | undefined;
-  selectedTags: string[] = [];
-  toggle(tag: string) {
+  tagList = store.fetchTags();
+  selectedTags: Tag[] = [];
+  toggle(tag: Tag) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -35,14 +31,12 @@ export default class Tags extends Vue {
   }
   create() {
     const name = window.prompt("请输入标签名")?.trim();
-
     if (!name) return;
-
     if (name === "") {
       window.alert("标签名不能为空");
     } else {
-      if (this.dataSource) {
-        this.$emit("update:dataSource", [...this.dataSource, name]);
+      if (this.tagList) {
+        store.createTag(name);
       }
     }
   }
@@ -59,11 +53,13 @@ export default class Tags extends Vue {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  > .current {
+
+  >.current {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    > li {
+
+    >li {
       $tag_color: #d9d9d9;
 
       background-color: $tag_color;
@@ -74,14 +70,17 @@ export default class Tags extends Vue {
       padding: 0 12px;
       margin-right: 12px;
       margin-top: 4px;
+
       &.selected {
         background: darken($tag_color, 40%);
         color: #f7f7f7;
       }
     }
   }
-  > .new {
+
+  >.new {
     padding-top: 16px;
+
     button {
       background: transparent;
       border: none;
