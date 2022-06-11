@@ -18,6 +18,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 import EditItem from "@/components/Money/EditItem.vue";
 import Button from "@/components/Button.vue";
+import store from "@/store/index2";
 
 @Component({
     components: {
@@ -29,7 +30,7 @@ import Button from "@/components/Button.vue";
 export default class EditLabel extends Vue {
     tag?: Tag = undefined;
     created() {
-        this.tag = window.findTag(this.$route.params.id);
+        this.tag = store.findTag(this.$route.params.id);
         if (!this.tag) {
             this.$router.replace('/404');
         }
@@ -37,13 +38,13 @@ export default class EditLabel extends Vue {
 
     updateTag(name: string) {
         if (this.tag) {
-            window.updateTag(this.tag.id, name)
+            store.updateTag(this.tag.id, name)
         }
     }
 
     delTag() {
         if (this.tag) {
-            if (window.removeTag(this.tag.id)) {
+            if (store.removeTag(this.tag.id)) {
                 this.goBack()
             } else {
                 console.log('delTag ERROR: ' + 'Tag ID: ' + this.tag.id);
