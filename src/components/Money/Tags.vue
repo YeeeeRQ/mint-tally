@@ -13,12 +13,19 @@
 </template>
 
 <script lang="ts">
-import store from "@/store/index2";
+// import store from "@/store/index2";
 import { Vue, Component } from "vue-property-decorator";
 
-@Component
+@Component({
+  computed:{
+    tagList(){
+      // return this.$store.fetchTags();
+      return []
+    }
+  }
+})
 export default class Tags extends Vue {
-  tagList = store.fetchTags();
+  // tagList = store.fetchTags();
   selectedTags: Tag[] = [];
   toggle(tag: Tag) {
     const index = this.selectedTags.indexOf(tag);
@@ -35,9 +42,10 @@ export default class Tags extends Vue {
     if (name === "") {
       window.alert("标签名不能为空");
     } else {
-      if (this.tagList) {
-        store.createTag(name);
-      }
+      // TODO
+      // if (this.tagList) {
+      //   store.createTag(name);
+      // }
     }
   }
 }

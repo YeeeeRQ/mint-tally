@@ -21,12 +21,14 @@ import store from "@/store/index2";
   components:{Button}
 })
 export default class Labels extends Vue {
+  // TODO
   tags = store.tagList;
   createTag() {
     const name = window.prompt("请输入标签名")?.trim();
     // const name = store.prompt("请输入标签名");
     if (name) {
-      store.createTag(name);
+      // TODO
+      // store.createTag(name);
     }
   }
 }
