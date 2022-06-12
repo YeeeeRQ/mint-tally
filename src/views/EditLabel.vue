@@ -18,7 +18,6 @@ import { Vue, Component } from "vue-property-decorator";
 import Icon from "@/components/Icon.vue";
 import EditItem from "@/components/Money/EditItem.vue";
 import Button from "@/components/Button.vue";
-// import store from "@/store/index2";
 
 @Component({
     components: {
@@ -27,31 +26,30 @@ import Button from "@/components/Button.vue";
         Button
     }
 })
+
 export default class EditLabel extends Vue {
-    tag?: Tag = undefined;
+    get tag(){
+        return this.$store.state.currentTag;
+    }
     created() {
-        // TODO
-        // this.tag = store.findTag(this.$route.params.id);
-        // if (!this.tag) {
-        //     this.$router.replace('/404');
-        // }
+        const id = (this.$route.params.id);
+        this.$store.commit('fetchTags');
+        this.$store.commit('setCurrentTag',id);
+        if (!this.tag) {
+            this.$router.replace('/404');
+        }
     }
 
     updateTag(name: string) {
         if (this.tag) {
-            //TODO
-            // store.updateTag(this.tag.id, name)
+            this.$store.commit('updateTag', {id: this.tag.id, name})
         }
     }
 
     delTag() {
         if (this.tag) {
-            // TODO
-            // if (store.removeTag(this.tag.id)) {
-            //     this.goBack()
-            // } else {
-            //     console.log('delTag ERROR: ' + 'Tag ID: ' + this.tag.id);
-            // }
+            this.$store.commit('removeTag', this.tag.id);
+            this.goBack()
         }
     }
 
