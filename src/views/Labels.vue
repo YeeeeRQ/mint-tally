@@ -13,24 +13,31 @@
 </template>
 
 <script lang="ts" >
-import { Vue, Component } from "vue-property-decorator";
+import { Component} from "vue-property-decorator";
 import Button from "@/components/Button.vue";
-import store from "@/store/index2";
-// 
+import { TagHelper } from "@/mixins/TagHelper";
+import { mixins } from "vue-class-component";
+
 @Component({
-  components:{Button}
-})
-export default class Labels extends Vue {
-  // TODO
-  tags = store.tagList;
-  createTag() {
-    const name = window.prompt("请输入标签名")?.trim();
-    // const name = store.prompt("请输入标签名");
-    if (name) {
-      // TODO
-      // store.createTag(name);
+  components:{Button},
+  computed:{
+    tags(){
+      return this.$store.state.tagList;
     }
   }
+})
+export default class Labels extends mixins(TagHelper){
+  beforeCreate(){
+    this.$store.commit('fetchTags');
+  }
+  // createTag() {
+
+  //   const name = window.prompt("请输入标签名")?.trim();
+  //   if (name === "") window.alert("标签名不能为空");
+  //   if (!name) return;
+  //   this.$store.commit("createTag", name);
+
+  // }
 }
 </script>
 
@@ -41,7 +48,6 @@ export default class Labels extends Vue {
   padding-left: 16px;
 
   >.tag {
-    // border: 1px solid red;
     min-height: 44px;
     display: flex;
     align-items: center;
