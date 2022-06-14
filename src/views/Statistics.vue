@@ -2,13 +2,8 @@
   <Layout>
     <Tabs :data-source="recordTypeList" :value.sync="type" class-prefix="type" />
     <Tabs :data-source="intervalList" :value.sync="interval" class-prefix="interval" />
-    <!-- <div>
-      type: {{ type }}
-      <br />
-      interval: {{ interval }}
-    </div> -->
     <ol>
-      <li v-for="group in result" :key="group.title">
+      <li v-for="group,index in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.amount" class="record">
@@ -28,6 +23,7 @@ import Tabs from "@/components/Tabs.vue";
 import intervalList from "@/constants/intervalList";
 import recordTypeList from "@/constants/recordTypeList";
 import dayjs from 'dayjs';
+import clone from "@/lib/clone";
 
 @Component({
   components: {
@@ -58,20 +54,24 @@ export default class Statistics extends Vue {
     return (this.$store.state as RootState).recordList;
   }
 
-  get result() {
+  get groupedList() {
     const { recordList } = this;
+    const formatStr = 'YYYY-MM-DD';
+    if(recordList.length === 0 ){return[];}
 
     type HashTableValue = { title: string, items: RecordItem[] }
-
-    const hashTable: { [key: string]: HashTableValue } = {};
-
-    for (let i = 0; i < recordList.length; i++) {
-      const [date, time] = recordList[i].createdAt!.split('T');
-
-      hashTable[date] = hashTable[date] || { title: date, items: [] }
-      hashTable[date].items.push(recordList[i]);
+    const newList = clone(recordList).sort((a,b)=>dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    const result = [{title: dayjs(newList[0].createdAt).format(formatStr), items:[newList[0]]}];
+    for(let i = 1; i< newList.length; i++){
+      const current = newList[i];
+      const last = result[result.length - 1];
+      if(dayjs(last.title).isSame(dayjs(current.createdAt), 'day')){
+        last.items.push(current);
+      }else{
+        result.push({title: dayjs(current.createdAt).format(formatStr), items:[current]})
+      }
     }
-    return hashTable;
+    return result;
   }
 
   beforeCreate() {
