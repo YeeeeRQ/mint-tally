@@ -8,12 +8,6 @@ Vue.use(Vuex);
 const Key4RecordList = "recordList";
 const Key4TagList = "tagList";
 
-type RootState = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-};
-
 const store = new Vuex.Store({
   state: {
     recordList: [],
@@ -56,7 +50,7 @@ const store = new Vuex.Store({
     },
     createRecord(state, record: RecordItem) {
       const record_copy: RecordItem = clone(record);
-      record_copy.createdAt = new Date();
+      record_copy.createdAt = new Date().toISOString();
       state.recordList.push(record_copy);
       console.log(state.recordList);
       store.commit("saveRecords");
