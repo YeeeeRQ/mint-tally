@@ -45,7 +45,11 @@ export default class Statistics extends Vue {
     }
   }
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',');
+    let showTags: string[] = [];
+    for(let t of tags){
+      showTags.push(t.name);
+    }
+    return tags.length === 0 ? '无' : showTags.join(',');
   }
 
   get recordList() {
@@ -78,7 +82,8 @@ export default class Statistics extends Vue {
     }
 
     result.map(group=>{
-      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+      const total = group.items.reduce((sum, item) => sum + item.amount, 0);
+      group.total =  parseFloat(total.toFixed(2));
     })
     return result;
   }
