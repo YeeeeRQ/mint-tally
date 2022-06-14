@@ -8,8 +8,8 @@
       interval: {{ interval }}
     </div> -->
     <ol>
-      <li v-for="group, index in result" :key="index">
-        <h3 class="title">{{ group.title }}</h3>
+      <li v-for="group in result" :key="group.title">
+        <h3 class="title">{{ beautify(group.title) }}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.amount" class="record">
             <span>{{ tagString(item.tags) }}</span>
@@ -27,6 +27,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
 import intervalList from "@/constants/intervalList";
 import recordTypeList from "@/constants/recordTypeList";
+import dayjs from 'dayjs';
 
 @Component({
   components: {
@@ -34,6 +35,21 @@ import recordTypeList from "@/constants/recordTypeList";
   }
 })
 export default class Statistics extends Vue {
+  beautify(title: string){
+    const day = dayjs(title)
+    const now = dayjs();
+    if(day.isSame(now, 'day')){
+      return '今天'
+    }else if(day.isSame(now.subtract(1, 'day'), 'day')){
+      return '昨天'
+    }else if(day.isSame(now.subtract(2, 'day'), 'day')){
+      return '前天'
+    }else if(day.isSame(now, 'year')){
+      return day.format('M月D日');
+    }else{
+      return day.format('YYYY年M月D日');
+    }
+  }
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.join(',');
   }
@@ -89,7 +105,7 @@ export default class Statistics extends Vue {
   @extend %item;
 }
 
-.notes{
+.notes {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
