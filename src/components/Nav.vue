@@ -13,15 +13,16 @@
 </template>
 
 <script lang="ts">
-import {Vue,Component} from 'vue-property-decorator';
+import { Vue, Component} from 'vue-property-decorator';
 @Component
-export default class Nav extends Vue{
-  mounted() {
-    const navWrapper = this.$refs.navWrapper as HTMLDivElement;
-    console.log(typeof navWrapper.clientHeight);
-    this.$emit("update:clientHeight", navWrapper.clientHeight);
+export default class Nav extends Vue {
+  get navHeight() {
+    return (this.$refs.navWrapper as HTMLDivElement).clientHeight;
   }
-
+  mounted() {
+    console.log(this.navHeight);
+    this.$emit("update:clientHeight", this.navHeight);
+  }
 }
 </script>
 

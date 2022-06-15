@@ -1,6 +1,6 @@
 <template>
   <div class="layout-wrapper">
-    <div class="content" :class="classPrefix && `${classPrefix}-content`" ref="pageContent" :style="contentStyle">
+    <div class="content" :class="classPrefix && `${classPrefix}-content`" :style="contentStyle">
       <slot></slot>
     </div>
     <Nav class="nav-wrapper" @update:clientHeight="onNavMounted" />
@@ -13,18 +13,21 @@ import { Vue, Component, Prop } from "vue-property-decorator"
 
 @Component
 export default class Layout extends Vue {
+
   @Prop({ default: '', type: String }) classPrefix?: '';
+  
   contentStyle = {
-    height: "100%",
+    bottom: "0px",
   }
+
   beforeCreate() {
     console.log(window.visualViewport.width + ' * ' + window.visualViewport.height)
   }
 
   onNavMounted(height: number) {
-    const pageContent = this.$refs.pageContent as HTMLDivElement;
-    this.contentStyle.height = (pageContent.clientHeight - height).toString() + 'px';
+    this.contentStyle.bottom = height.toString() + 'px';
   }
+
 }
 </script>
 
@@ -40,7 +43,8 @@ export default class Layout extends Vue {
 }
 
 .content {
-  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: hidden;
   position: fixed;
   top: 0;
   width: 100%;
