@@ -22,6 +22,7 @@ import NumberPad from "@/components/Money/NumberPad.vue";
 import Tabs from "@/components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 
+
 @Component({
   components: { NumberPad, Tags, Notes: EditItem, Tabs },
 })

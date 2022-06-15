@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav ref="navWrapper">
     <router-link to="/money" class="item" active-class="selected">
       <Icon name="money" /> 记账
     </router-link>
@@ -13,35 +13,49 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: "Nav",
-};
+import {Vue,Component} from 'vue-property-decorator';
+@Component
+export default class Nav extends Vue{
+  mounted() {
+    const navWrapper = this.$refs.navWrapper as HTMLDivElement;
+    console.log(typeof navWrapper.clientHeight);
+    this.$emit("update:clientHeight", navWrapper.clientHeight);
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 
+
+
 nav {
   display: flex;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   flex-direction: row;
+  justify-content: space-around;
+
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   font-size: 14px;
   background: white;
-  > .item {
+
+  >.item {
     padding: 2px 0;
-    width: 33.33333%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     .icon {
       width: 30px;
       height: 30px;
     }
+
     color: #a0a0a0;
     font-weight: lighter;
   }
-  > .item.selected {
+
+  >.item.selected {
     color: $color-highlight;
     font-weight: bold;
   }
