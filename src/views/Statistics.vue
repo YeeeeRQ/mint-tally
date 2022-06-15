@@ -3,7 +3,7 @@
     <Tabs :data-source="recordTypeList" :value.sync="type" class-prefix="type" />
     <ol>
       <li v-for="group, index in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{group.total}}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.createdAt" class="record">
             <span>{{ tagString(item.tags) }}</span>
@@ -47,7 +47,7 @@ export default class Statistics extends Vue {
   }
   tagString(tags: Tag[]) {
     let showTags: string[] = [];
-    for(let t of tags){
+    for (let t of tags) {
       showTags.push(t.name);
     }
     return tags.length === 0 ? '无' : showTags.join(',');
@@ -69,6 +69,8 @@ export default class Statistics extends Vue {
       .filter(r => r.type === this.type)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
 
+    if (newList.length <= 0) { return []; }
+
     type Result = { title: string, total?: number, items: RecordItem[] }[];
 
     const result: Result = [{ title: dayjs(newList[0].createdAt).format(formatStr), items: [newList[0]] }];
@@ -81,11 +83,11 @@ export default class Statistics extends Vue {
         result.push({ title: dayjs(current.createdAt).format(formatStr), items: [current] })
       }
     }
-
-    result.map(group=>{
+    result.map(group => {
       const total = group.items.reduce((sum, item) => sum + item.amount, 0);
-      group.total =  parseFloat(total.toFixed(2));
+      group.total = parseFloat(total.toFixed(2));
     })
+
     return result;
   }
 

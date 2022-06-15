@@ -49,6 +49,16 @@ export default class Money extends Vue {
   saveRecord() {
     this.$store.commit('createRecord', this.record);
   }
+
+  beforeMount(){
+    // init tag
+    if(this.$store.state.tagList.length === 0){
+      let initTags = ['衣', '食','住','行'];
+      for(let t of initTags){
+        this.$store.commit('createTag', t);
+      }
+    }
+  }
 }
 </script>
 
