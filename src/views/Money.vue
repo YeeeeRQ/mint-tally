@@ -9,7 +9,6 @@
       :value.sync="record.type"
     />
     <NumberPad @update:value="onUpdateAmount" @submit="saveRecord" />
-    <!-- {{record}} -->
   </Layout>
 </template>
 

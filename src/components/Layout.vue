@@ -20,10 +20,6 @@ export default class Layout extends Vue {
     bottom: "0px",
   }
 
-  beforeCreate() {
-    console.log(window.visualViewport.width + ' * ' + window.visualViewport.height)
-  }
-
   onNavMounted(height: number) {
     this.contentStyle.bottom = height.toString() + 'px';
   }

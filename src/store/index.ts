@@ -35,7 +35,7 @@ const store = new Vuex.Store({
       }
     },
 
-    removeTag(state, id: string){
+    removeTag(state, id: string) {
       const idx = state.tagList.findIndex((el) => el.id === id);
       if (idx >= 0) {
         state.tagList.splice(idx, 1);
@@ -48,13 +48,14 @@ const store = new Vuex.Store({
         localStorage.getItem(Key4RecordList) || "[]"
       ) as RecordItem[];
     },
+
     createRecord(state, record: RecordItem) {
       const record_copy: RecordItem = clone(record);
       record_copy.createdAt = new Date().toISOString();
       state.recordList.push(record_copy);
-      console.log(state.recordList);
       store.commit("saveRecords");
     },
+
     saveRecords(state) {
       localStorage.setItem(Key4RecordList, JSON.stringify(state.recordList));
     },
@@ -64,6 +65,7 @@ const store = new Vuex.Store({
         window.localStorage.getItem(Key4TagList) || "[]"
       );
     },
+
     createTag(state, name: string) {
       const names = state.tagList.map((item) => item.name);
       if (names.indexOf(name) >= 0) {
@@ -77,6 +79,7 @@ const store = new Vuex.Store({
       store.commit("saveTags");
       return "success";
     },
+
     saveTags(state) {
       localStorage.setItem(Key4TagList, JSON.stringify(state.tagList));
     },

@@ -20,7 +20,6 @@ export default class Nav extends Vue {
     return (this.$refs.navWrapper as HTMLDivElement).clientHeight;
   }
   mounted() {
-    console.log(this.navHeight);
     this.$emit("update:clientHeight", this.navHeight);
   }
 }
