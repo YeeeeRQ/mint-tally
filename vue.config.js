@@ -6,6 +6,12 @@ module.exports = defineConfig({
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icons')
 
+    config.plugin('html')
+    .tap(args => {
+        args[0].title = '薄荷记账'
+        return args
+    })
+
     config.module
       .rule('svg-sprite')
       .test(/\.svg$/)

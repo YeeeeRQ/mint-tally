@@ -16,10 +16,4 @@ body{
   color: #333;
 }
 
-// .clearfix::after{
-//   content:'';
-//   display: block;
-//   clear:both;
-// }
-
 </style>
