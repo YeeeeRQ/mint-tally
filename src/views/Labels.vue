@@ -7,7 +7,7 @@
       </router-link>
     </ol>
     <div class="createTag-wrapper">
-      <Button class="createTag" @click.native="createTag">新建标签</Button>
+      <Button class="createTag" @click.native="createTag">新增标签</Button>
     </div>
   </Layout>
 </template>
@@ -55,12 +55,12 @@ export default class Labels extends mixins(TagHelper){
 }
 
 .createTag {
-  background: #767676;
+  background: #8FBC8F;
+  font-weight: bold;
   color: white;
   border-radius: 8px;
   border: none;
   height: 40px;
-  ;
   padding: 0 16px;
 
   &-wrapper {
