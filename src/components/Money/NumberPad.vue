@@ -15,7 +15,7 @@
       <button>9</button>
       <button data-type="ok" class="ok">OK</button>
       <button class="zero">0</button>
-      <button data-type="dot">.</button>
+      <button class="dot" data-type="dot">.</button>
     </div>
   </div>
 </template>
@@ -119,11 +119,16 @@ export default class NumberPad extends Vue {
   .buttons {
     @extend %clearfix;
     > button {
+      font-size: 18px;
       width: 25%;
       height: 64px;
       float: left;
       background: transparent;
       border: none;
+      &.dot{
+        font-size: 18px;
+        font-weight: bolder;
+      }
       &.ok {
         float: right;
         height: 64 * 2px;
