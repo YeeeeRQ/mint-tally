@@ -1,5 +1,10 @@
 # 薄荷记账
 
+简洁明快的记账软件。
+[在线预览](https://yeeeerq.github.io/mint-tally-website)
+
+
+
 ## Project setup
 ```
 yarn install
@@ -24,6 +29,3 @@ yarn test:unit
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
