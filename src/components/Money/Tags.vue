@@ -65,7 +65,7 @@ export default class Tags extends mixins(TagHelper){
       border-radius: $h/2;
       padding: 0 18px;
       margin-right: 18px;
-      margin-top: 4px;
+      margin-top: 14px;
 
       &.selected {
         
